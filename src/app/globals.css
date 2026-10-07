@@ -1,0 +1,115 @@
+@import "@fontsource-variable/manrope/wght.css";
+@import "@fontsource/instrument-serif/latin-400.css";
+@import "@fontsource/instrument-serif/latin-400-italic.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --ink: #0a0a0b;
+    --bone: #f3f0ea;
+    --platinum: #b9b5ac;
+    --header-h: 72px;
+    color-scheme: dark;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-padding-top: calc(var(--header-h) + 16px);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+  }
+  body {
+    @apply bg-ink text-bone font-sans;
+    font-feature-settings: "ss01", "cv11";
+  }
+  ::selection { background: var(--bone); color: var(--ink); }
+  :focus-visible {
+    outline: 1.5px solid var(--bone);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  .light :focus-visible { outline-color: var(--ink); }
+  h1, h2, h3 { text-wrap: balance; }
+  p { text-wrap: pretty; }
+}
+
+@layer components {
+  .eyebrow {
+    @apply text-eyebrow uppercase font-medium text-platinum;
+  }
+  .light .eyebrow { @apply text-graphite; }
+  .serif-italic { @apply font-serif italic; }
+  .hairline { border-color: rgba(243, 240, 234, 0.12); }
+  .light .hairline { border-color: rgba(10, 10, 11, 0.12); }
+
+  /* Metálico discreto — usado com parcimônia */
+  .text-metal {
+    background: linear-gradient(110deg, #8e8a80 0%, #e6e2d9 38%, #b9b5ac 55%, #f3f0ea 70%, #8e8a80 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .rule-metal {
+    background: linear-gradient(90deg, transparent, rgba(217, 213, 204, 0.55), transparent);
+    height: 1px;
+  }
+
+  .btn {
+    @apply relative inline-flex items-center justify-center gap-3 rounded-full px-6 py-3.5 text-[0.78rem] font-semibold uppercase tracking-[0.16em] transition-[background,color,border-color,box-shadow] duration-500 ease-luxe;
+    min-height: 48px;
+  }
+  .btn-primary { @apply bg-bone text-ink hover:bg-white; }
+  .btn-ghost { @apply border border-bone/30 text-bone hover:border-bone hover:bg-bone/5; }
+  .light .btn-ghost { @apply border-ink/25 text-ink hover:border-ink hover:bg-ink/5; }
+  .btn-dark { @apply bg-ink text-bone hover:bg-ink-700; }
+
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .link-underline:hover, .link-underline:focus-visible { background-size: 100% 1px; }
+
+  .field {
+    @apply w-full rounded-none border-0 border-b bg-transparent px-0 py-3 text-base text-bone placeholder:text-bone/35 transition-colors duration-300 focus:border-bone focus:outline-none focus:ring-0;
+    border-color: rgba(243, 240, 234, 0.2);
+  }
+  .field-label { @apply eyebrow block text-bone/60; }
+
+  .chip {
+    @apply inline-flex items-center gap-2 rounded-full border px-4 py-2 text-[0.72rem] font-medium uppercase tracking-[0.14em] transition-all duration-300;
+    min-height: 40px;
+  }
+
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: -50%;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    animation: grain 1.2s steps(4) infinite;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { scrollbar-width: none; }
+  .mask-fade-x { mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
